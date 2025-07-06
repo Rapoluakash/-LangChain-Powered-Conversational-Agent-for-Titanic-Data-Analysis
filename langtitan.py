@@ -2,13 +2,28 @@ import os
 import warnings
 import pandas as pd
 from langchain_experimental.agents import create_pandas_dataframe_agent
-from langchain.llms import OpenAI
+
+# ✅ Try importing from langchain-community (to fix future deprecation)
+try:
+    from langchain_community.llms import OpenAI
+except ImportError:
+    from langchain.llms import OpenAI  # fallback if not installed
+
+# ✅ Load from .env if it exists (for local dev)
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass  # ignore if not using dotenv
+
+# ✅ Set OpenAI API key securely
+api_key = os.getenv("OPENAI_API_KEY")
+if not api_key:
+    raise ValueError("❌ OPENAI_API_KEY is missing. Set it in .env or GitHub Secrets.")
+os.environ["OPENAI_API_KEY"] = api_key
 
 # Suppress warnings
 warnings.filterwarnings("ignore")
-
-# Set your OpenAI API Key
-os.environ["OPENAI_API_KEY"] = "Enter_your_api_key_here"
 
 # Load the Titanic dataset
 df = pd.read_csv("https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv")
@@ -23,7 +38,7 @@ agent = create_pandas_dataframe_agent(
     llm=llm,
     df=df,
     verbose=True,
-    allow_dangerous_code=True  # ✅ REQUIRED for full execution
+    allow_dangerous_code=True
 )
 
 # Run some basic queries
