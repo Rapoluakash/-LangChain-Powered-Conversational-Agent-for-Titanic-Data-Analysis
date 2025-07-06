@@ -1,9 +1,7 @@
-name: Run LangChain Titanic Agent
+name: Run Titanic LangChain Agent
 
 on:
   push:
-    branches: [main]
-  pull_request:
     branches: [main]
 
 jobs:
@@ -11,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Set up Python
@@ -20,12 +18,11 @@ jobs:
           python-version: '3.10'
 
       - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
+        run: pip install -r requirements.txt
 
-      - name: Run LangChain script
-        env:  # ✅ Correct location for secret
+      - name: Run script with API key
+        env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
-          echo "✅ API key received: $OPENAI_API_KEY"  # Debug (remove later)
+          echo "✅ API key received: $OPENAI_API_KEY"  # Debug
           python langtitan.py
