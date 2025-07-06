@@ -1,31 +1,14 @@
-# .github/workflows/python-app.yml
-
-name: Run Titanic Agent
-
-on:  # ✅ This is the missing part!
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.10"
-
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
-
-      - name: Run script
-        run: |
-          python langtitan.py  # ✅ CORRECT
-
+name: langchain-titanic
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pandas
+  - pip
+  - pip:
+      - openai
+      - langchain
+      - langchain-experimental
+      - python-dotenv
+      - tabulate
