@@ -1,30 +1,16 @@
-name: LangTitan CI
+name: langtitan
+channels:
+  - defaults
+  - conda-forge
+  - pip
 
-on:  # 👈 This is required!
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
-
-    - name: Install dependencies
-      run: |
-        pip install -r requirements.txt
-
-    - name: Run script
-      run: |
-        python langtitan.py
+dependencies:
+  - python=3.10
+  - pandas=2.2.2
+  - pip
+  - pip:
+      - openai==0.28.1  # ✅ Compatible with LangChain < 0.2
+      - langchain==0.1.17
+      - langchain-experimental==0.0.51
+      - python-dotenv==1.0.1
+      - tqdm==4.66.4
