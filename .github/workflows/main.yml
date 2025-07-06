@@ -11,7 +11,7 @@ on:
 jobs:
   run-script:
     runs-on: ubuntu-latest
-    env:  # ✅ This tells GitHub to pass your secret to Python
+    env:  # ✅ This makes the secret available to your Python script
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
     steps:
