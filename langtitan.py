@@ -11,7 +11,7 @@ warnings.filterwarnings("ignore")
 os.environ["OPENAI_API_KEY"] = "Enter_your_api_key_here"
 
 # Load the Titanic dataset
-df = pd.read_csv(r"C:\\Users\\rapol\\Downloads\\DATA SCIENCE\\3. Nov\\11th - ML\\TITANIC")
+df = pd.read_csv("https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv")
 print(df.shape)
 print(df.head())
 
