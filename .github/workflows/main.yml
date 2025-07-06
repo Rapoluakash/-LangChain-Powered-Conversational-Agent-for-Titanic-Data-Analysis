@@ -11,8 +11,6 @@ on:
 jobs:
   run-script:
     runs-on: ubuntu-latest
-    env:  # ✅ This makes the secret available to your Python script
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
     steps:
       - name: Checkout repository
@@ -28,5 +26,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run LangChain Script
+        env:  # ✅ Pass secret into script
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
           python langtitan.py
