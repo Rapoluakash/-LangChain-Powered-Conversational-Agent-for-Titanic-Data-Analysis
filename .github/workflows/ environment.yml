@@ -1,30 +1,13 @@
-name: LangTitan CI
-
-on:  # ✅ This tells GitHub WHEN to run the workflow
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
-
-      - name: Run LangTitan script
-        run: |
-          python langtitan.py
+name: langchain-titanic
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pandas
+  - pip
+  - pip:
+      - openai
+      - langchain
+      - langchain-experimental
+      - python-dotenv
