@@ -1,4 +1,12 @@
+
 import os
+
+api_key = os.getenv("OPENAI_API_KEY")
+if not api_key:
+    raise ValueError("❌ OPENAI_API_KEY is missing. Set it in .env or GitHub Secrets.")
+print("✅ API key found.")
+os.environ["OPENAI_API_KEY"] = api_key
+
 import warnings
 import pandas as pd
 
